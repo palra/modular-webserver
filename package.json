@@ -5,6 +5,12 @@
   "main": "index.js",
   "repository": "",
   "author": "Loïc Payol <loicpayol@gmail.com>",
-  "dependencies": {
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "^1.21.4",
+    "should": "^4.0.4"
   }
 }
