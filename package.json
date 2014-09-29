@@ -1,0 +1,10 @@
+{
+  "name": "modular-webserver",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "repository": "",
+  "author": "Loïc Payol <loicpayol@gmail.com>",
+  "dependencies": {
+  }
+}
