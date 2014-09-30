@@ -7,6 +7,15 @@
  # Crafted at FlightSafety International®.
 ###
 
+###############################################################################
+#                                                                             #
+# This file is meant to be hidden, it contains all sensible data              #
+# of your application.                                                        #
+# Make sure to add it to your `.gitignore` !                                  #
+#                                                                             #
+###############################################################################
+
+
 module.exports =
 	parameters:
 	    "express.port": process.env.PORT

@@ -7,13 +7,21 @@
  # Crafted at FlightSafety International®.
 ###
 
-module.exports =
-	parameters:	    
-	    "express.port": process.env.PORT
-	    "express.host": process.env.IP
+###############################################################################
+#                                                                             #
+# This file is meant to be hidden, it contains all sensible data              #
+# of your application.                                                        #
+# Make sure to add it to your `.gitignore` !                                  #
+#                                                                             #
+###############################################################################
 
-	    "ORM.database": "palra"
-	    "ORM.username": "palra"
-	    "ORM.password": "palra"
-	    "ORM.options":
-	    	dialect: "postgres"
+module.exports =
+  parameters:     
+      "express.port": process.env.PORT
+      "express.host": process.env.IP
+
+      "ORM.database": "palra"
+      "ORM.username": "palra"
+      "ORM.password": "palra"
+      "ORM.options":
+        dialect: "postgres"
