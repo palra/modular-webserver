@@ -1,21 +1,13 @@
+/*******************************************************************************
+ * Application.js
+ * 
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE', which is part of this source code package.
+ * 
+ * Crafted at FlightSafety International®.
+ */
+ 
 var ServiceContainer = require('service-container'),
-    requireAll = function(dirname) {
-        var fs = require('fs');
-        try {
-            var files = fs.readdirSync(dirname);
-            var modules = {};
-            
-            files.forEach(function (file) {
-                var filepath = dirname + '/' + file;
-                if (fs.statSync(filepath).isDirectory()) {
-                    return require(filepath);
-                }
-            });
-        } catch (e) {
-            if(e.code != "ENOENT")
-                throw e;
-        }
-    },
     EventEmitter = require("events").EventEmitter,
     util = require('util')
     ;
@@ -51,7 +43,13 @@ function Application(env)
         ignoreNodeModulesDirectory: true
     });
     
-    this.apps = requireAll(__dirname + "/apps");
+    this.start = function() {
+        global.log = require('captains-log')();
+        
+        this.kernel = this.services.get('kernel');
+        this.kernel.load();
+        return this;
+    };
 }
 
 util.inherits(Application, EventEmitter);

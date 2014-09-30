@@ -1,10 +1,12 @@
 /*******************************************************************************
- * globalHooks.js
+ * HelloController.js
  * 
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
  * 
- * Crafted at FlightSafety International®.
+ * Crafted at FlightSafety International®. 
  */
-
-global.should = require('should');
+ 
+get("/", function(req, res) {
+  res.send("Hello world !");
+});

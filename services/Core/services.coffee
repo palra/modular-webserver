@@ -8,20 +8,15 @@
 ###
 
 module.exports =
-  imports: [
-    "./HTTP/services.coffee"
-    "./Core/services.coffee"
+  parameters:
+    "appmgr.file": "./AppManager"
     
-    "./parameters.coffee"
-  ]
-  
-  parameters: 
-    "kernel.file": "./Kernel"
-  
+    "appmgr.basedir": "#{__dirname}/../../apps"
+    
   services:
-    kernel:
-      class: "%kernel.file%"
+    appmgr:
+      class: "%appmgr.file%"
       isSingleton: true
-      calls: [
-        ["setContainer", ["@container"]]
+      arguments: [
+        "%appmgr.basedir%"
       ]

@@ -1,6 +1,15 @@
+/*******************************************************************************
+ * Application.test.js
+ * 
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE', which is part of this source code package.
+ * 
+ * Crafted at FlightSafety International®.
+ */
+
 describe('Application', function() {
     
-    var Application = require('../index.js'),
+    var Application = require('../Application'),
         app = new Application('test');
     
     it('should have a service container', function() {
