@@ -8,11 +8,11 @@
 ###
 
 module.exports =
+  # It imports the content of these files here
   imports: [
-    "./HTTP/services.coffee"
-    "./Core/services.coffee"
-    
     "./parameters.coffee"
+    "./HTTP/services.coffee"
+    "./Core/services.coffee"    
   ]
   
   parameters: 
@@ -24,4 +24,12 @@ module.exports =
       isSingleton: true
       calls: [
         ["setContainer", ["@container"]]
+      ]
+    ORM:
+      class: "sequelize"
+      arguments: [
+        "%ORM.database%"
+        "%ORM.username%"
+        "%ORM.password%"
+        "%ORM.options%"
       ]

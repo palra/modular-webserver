@@ -27,11 +27,19 @@ util.inherits(Kernel, ServiceContainerAware);
  * Launches the webserver, and all the rest
  */
 Kernel.prototype.load = function() {
+  global.container = this.container;
+  
+  
   this.server = this.container.get('express');
+
   this.router = this.container.get('router');
   _.assign(global, this.router);
+
+  this.ORM = this.container.get('ORM');
+  this.ORM.sync();
   
   this.appManager = this.container.get('appmgr');
+
   
   log.debug("Kernel loaded");
 };

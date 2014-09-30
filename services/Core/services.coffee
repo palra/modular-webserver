@@ -20,3 +20,6 @@ module.exports =
       arguments: [
         "%appmgr.basedir%"
       ]
+      calls: [
+        ["setContainer", ["@container"]]
+      ]
