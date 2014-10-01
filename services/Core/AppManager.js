@@ -33,11 +33,12 @@ function AppManager(basedir, factory, container) {
   this.setContainer(container);
   this.factory = factory;
 
-  this.apps = (function(dirname) {
+  this.apps = {};
+  function loadApp(dirname) {
     var fs = require('fs');
     try {
       var files = fs.readdirSync(dirname);
-      var modules = {};
+      var modules = this.apps;
       
       files.forEach(function (file) {
         var filepath = dirname + "/" + file;
@@ -47,13 +48,17 @@ function AppManager(basedir, factory, container) {
           ].call(this.factory, filepath);
         }
       }, this);
-      
-      return modules;
     } catch (e) {
       if(e.code != "ENOENT")
         throw e;
     }
-  }).call(this, this.basedir);
+  }
+
+  loadApp.call(this, this.basedir);
+
+  this.apps.root = this.factory[
+    this.container.getParameter('appfactory.loadingMethod')
+  ].call(this.factory, container.getParameter('kernel.root'));
   
   log.debug("App manager initialized : " +
     Object.keys(this.apps).length +

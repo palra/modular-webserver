@@ -22,9 +22,16 @@ var AppFactory = {};
  * @return {Object.<string, mixed>} Content of the application
  */
 AppFactory.loadFolder = function(dirname) {
+  var app = container.get('express'),
+      express = require('express')
+      ;
+
+  // Configure public directory
+  app.use(express.static(dirname + "/public"));
+
   return {
     config: (function(){
-      // Require all controllers in folder /controllers
+      // Require all configuration in folder /config ...
       var config;
       
       config = requireAll(dirname + "/config", {
@@ -34,7 +41,7 @@ AppFactory.loadFolder = function(dirname) {
       return config;
     }()),
     models: (function(){
-      // Require all controllers in folder /controllers
+      // Require all models in folder /models ...
       var models;
       
       models = requireAll(dirname + "/models", {
@@ -44,7 +51,7 @@ AppFactory.loadFolder = function(dirname) {
       return models;
     }()),
     controllers: (function(){
-      // Require all controllers in folder /controllers
+      // And require all controllers in folder /controllers.
       var ctrls;
       
       ctrls = requireAll(dirname + "/controllers", {

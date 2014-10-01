@@ -17,6 +17,7 @@ module.exports =
   
   parameters: 
     "kernel.file": "./Kernel"
+    "kernel.root": "#{__dirname}/.."
   
   services:
     kernel:

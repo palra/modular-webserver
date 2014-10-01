@@ -8,7 +8,7 @@
  */
 
 var ORM = container.get('ORM');
- 
+
 get("/", function(req, res) {
-  res.send("Hello world !");
+  res.render('apps/HelloWorld/views/index', {name: 'World'});
 });

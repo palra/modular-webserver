@@ -1,4 +1,5 @@
 node_modules
 .c9
-services/parameters.coffee
-services/parameters.js
+
+config/parameters.js
+config/parameters.coffee

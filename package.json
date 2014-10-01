@@ -5,9 +5,7 @@
   "main": "index.js",
   "repository": "",
   "author": "Loïc Payol <loicpayol@gmail.com>",
-  "scripts": {
-    "test": "mocha"
-  },
+  "scripts": {},
   "dependencies": {
     "captains-log": "^0.11.11",
     "coffee-script": "^1.8.0",
@@ -16,10 +14,8 @@
     "require-all": "0.0.8",
     "service-container": "palra/service-container",
     "sequelize": "~2.0.0-rc1",
-    "pg": "~3.4.5"
-  },
-  "devDependencies": {
-    "mocha": "^1.21.4",
-    "should": "^4.0.4"
+    "pg": "~3.4.5",
+    "ejs": "~1.0.0",
+    "ejs-locals": "~1.0.2"
   }
 }

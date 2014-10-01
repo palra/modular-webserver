@@ -32,6 +32,8 @@ require("coffee-script/register"); // Did I told you I like CoffeeScript ?
  */
 function Application(env)
 {
+    global.log = require('captains-log')();
+    
     /**
      * The service container.
      * 
@@ -44,7 +46,6 @@ function Application(env)
     });
     
     this.start = function() {
-        global.log = require('captains-log')();
         
         this.kernel = this.services.get('kernel');
         this.kernel.load();

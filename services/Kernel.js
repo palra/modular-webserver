@@ -28,8 +28,11 @@ util.inherits(Kernel, ServiceContainerAware);
  */
 Kernel.prototype.load = function() {
   global.container = this.container;
-  
-  
+
+  this.configuration = requireAll(__dirname + "/../config", {
+    filter: /(.+)\.(?:js|coffee)?$/
+  });
+
   this.server = this.container.get('express');
 
   this.router = this.container.get('router');
@@ -42,6 +45,19 @@ Kernel.prototype.load = function() {
 
   
   log.debug("Kernel loaded");
+};
+
+
+/**
+ * @private
+ */
+function requireAll () {
+  try {
+    return require('require-all').apply(this, arguments);
+  } catch(e) {
+    if(e.code != 'ENOENT')
+      throw e;
+  }
 };
 
 module.exports = Kernel;
