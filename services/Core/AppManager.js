@@ -13,26 +13,7 @@
  * @param {string} dirname The folder to require its subfolders
  * @returns An object containing all theses folder mapped to their name.
  */
-var requireFolders = function(dirname) {
-        var fs = require('fs');
-        try {
-            var files = fs.readdirSync(dirname);
-            var modules = {};
-            
-            files.forEach(function (file) {
-                var filepath = dirname + "/" + file;
-                if (fs.statSync(filepath).isDirectory()) {
-                    modules[file] = require(filepath);
-                }
-            });
-            
-            return modules;
-        } catch (e) {
-            if(e.code != "ENOENT")
-                throw e;
-        }
-    },
-    util = require("util"),
+var util = require("util"),
     ServiceContainerAware = require('../ServiceContainerAware')
     ;
 
@@ -41,17 +22,42 @@ var requireFolders = function(dirname) {
  * According to a 
  * 
  * @param {string} basedir Folder where are stored apps
+ * @param {AppFactory} factory The application factory
+ * @param {Container} container The service Container
  * 
  * @constructor
  * @public
  */
-function AppManager(basedir) {
-    this.basedir = basedir;
-    this.apps = requireFolders(basedir);
-    
-    log.debug("App manager initialized : " +
-        Object.keys(this.apps).length +
-        " app(s) detected.");
+function AppManager(basedir, factory, container) {
+  this.basedir = basedir;
+  this.setContainer(container);
+  this.factory = factory;
+
+  this.apps = (function(dirname) {
+    var fs = require('fs');
+    try {
+      var files = fs.readdirSync(dirname);
+      var modules = {};
+      
+      files.forEach(function (file) {
+        var filepath = dirname + "/" + file;
+        if (fs.statSync(filepath).isDirectory()) {
+          modules[file] = this.factory[
+            this.container.getParameter('appfactory.loadingMethod')
+          ].call(this.factory, filepath);
+        }
+      }, this);
+      
+      return modules;
+    } catch (e) {
+      if(e.code != "ENOENT")
+        throw e;
+    }
+  }).call(this, this.basedir);
+  
+  log.debug("App manager initialized : " +
+    Object.keys(this.apps).length +
+    " app(s) detected.");
 }
 
 util.inherits(AppManager, ServiceContainerAware);
@@ -63,7 +69,7 @@ util.inherits(AppManager, ServiceContainerAware);
  * @returns {boolean} true if it exists, false if not.
  */
 AppManager.prototype.get = function(app) {
-    return this.apps[app];
+  return this.apps[app];
 };
 
 /**
@@ -71,7 +77,7 @@ AppManager.prototype.get = function(app) {
  * @returns {boolean} The app
  */
 AppManager.prototype.has = function(app) {
-    return this.get(app) !== undefined;
+  return this.get(app) !== undefined;
 };
 
 module.exports = AppManager;
