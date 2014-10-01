@@ -23,25 +23,35 @@ var AppFactory = {};
  */
 AppFactory.loadFolder = function(dirname) {
   return {
-    controllers: (function(){
+    config: (function(){
       // Require all controllers in folder /controllers
-      var ctrls;
+      var config;
       
-      ctrls = requireAll(__dirname + "/controllers", {
+      config = requireAll(dirname + "/config", {
         filter: /(.+)\.(?:js|coffee)?$/
       });
       
-      return ctrls;
+      return config;
     }()),
     models: (function(){
       // Require all controllers in folder /controllers
       var models;
       
-      models = requireAll(__dirname + "/models", {
+      models = requireAll(dirname + "/models", {
         filter: /(.+)\.(?:js|coffee)?$/
       });
       
       return models;
+    }()),
+    controllers: (function(){
+      // Require all controllers in folder /controllers
+      var ctrls;
+      
+      ctrls = requireAll(dirname + "/controllers", {
+        filter: /(.+)\.(?:js|coffee)?$/
+      });
+      
+      return ctrls;
     }()),
   };
 };
