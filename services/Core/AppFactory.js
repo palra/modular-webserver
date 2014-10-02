@@ -47,6 +47,14 @@ AppFactory.loadFolder = function(dirname) {
       models = requireAll(dirname + "/models", {
         filter: /(.+)\.(?:js|coffee)?$/
       });
+
+      // Call `associate` method on each model
+      Object.keys(models).forEach(function(modelName) {
+        // .. if exists
+        if ('associate' in models[modelName]) {
+          models[modelName].associate(models)
+        }
+      })
       
       return models;
     }()),
